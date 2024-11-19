@@ -1,20 +1,19 @@
-# Usar una imagen base
 FROM node:14
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Crear el directorio de la aplicación
 WORKDIR /app
 
-# Copiar los archivos necesarios desde el host al contenedor
-COPY package.json package-lock.json ./
+# Copiar los archivos de la aplicación
+COPY package*.json ./
 
-# Instalar dependencias
+# Instalar las dependencias
 RUN npm install
 
 # Copiar el resto de los archivos de la aplicación
 COPY . .
 
-# Exponer el puerto 3000
+# Exponer el puerto
 EXPOSE 3000
 
-# Comando para ejecutar la aplicación
+# Comando para iniciar la aplicación
 CMD ["npm", "start"]
