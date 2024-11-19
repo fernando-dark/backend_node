@@ -18,7 +18,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/src/views'));
 
-const port = process.env.PORT || 8080;
+const port = 3000 || 8080;
 app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,6 +45,6 @@ app.get('/', async (req, res) => {
 
 
 
-app.listen(port, () => {
+app.listen(port, '127.0.0.1', () => {
     console.log(`Server running on port ${port}`);
 });
