@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Filtro</title>
+</head>
+<body>
+    <h1>Agregar Filtro</h1>
+    <form action="/filters" method="POST">
+        <div>
+            <label for="division">Selecciona la división de personal:</label>
+            <select id="division" name="division" multiple>
+                <% divisions.forEach(division => { %>
+                    <option value="<%= division.id %>"><%= division.id %> - <%= division.name %></option>
+                <% }) %>
+            </select>
+        </div>
+        <div>
+            <label for="function">Selecciona la función:</label>
+            <select id="function" name="function" multiple>
+                <% functions.forEach(func => { %>
+                    <option value="<%= func.id %>"><%= func.id %> - <%= func.name %></option>
+                <% }) %>
+            </select>
+        </div>
+        <!-- Agrega más campos aquí -->
+        <button type="submit">Aplicar Filtros</button>
+    </form>
+</body>
+</html>
