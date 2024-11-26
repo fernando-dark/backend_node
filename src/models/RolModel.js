@@ -71,12 +71,22 @@ class RolModel {
     }
 
     static async deleteRole({ id }) {
-        const deleteRole = await pool.query(
-            `DELETE FROM role WHERE id = $1 RETURNING *`,
-            [id]
-        );
 
-        return new RolModel(deleteRole.rows[0]);
+        try {
+            const deleteRole = await pool.query(
+                `DELETE FROM role WHERE id = $1 RETURNING *`,
+                [id]
+            );
+
+            if (deleteRole.rows.length === 0) {
+                throw new Error(`No se encontró un rol con el ID ${id}`);
+            }
+
+            return new RolModel(deleteRole.rows[0]);
+        } catch (error) {
+            throw error;
+        }
+
     }
 
 }
