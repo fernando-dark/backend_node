@@ -18,11 +18,25 @@ class GroupAppModel {
     }
 
     static async delete({ id }) {
-        const result = await pool.query(
-            `DELETE FROM groupapp WHERE groupid = $1 RETURNING *`,
-            [id]
-        );
-        return new GroupAppModel(result.rows[0]);
+
+        try {
+            const result = await pool.query(
+                `DELETE FROM groupapp WHERE groupid = $1 RETURNING *`,
+                [id]
+            );
+
+            if (result.rows.length === 0) {
+                return;
+            }
+
+            return new GroupAppModel(result.rows[0]);
+
+        } catch (error) {
+            console.log(error);
+            throw error
+        }
+
+
     }
 
 }

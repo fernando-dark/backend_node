@@ -19,11 +19,24 @@ class GroupRoleModel {
     }
 
     static async delete({ id }) {
-        const result = await pool.query(
-            `DELETE FROM grouprole WHERE idgroup = $1 RETURNING *`,
-            [id]
-        );
-        return new GroupRoleModel(result.rows[0]);
+
+        try {
+
+            const result = await pool.query(
+                `DELETE FROM grouprole WHERE idgroup = $1 RETURNING *`,
+                [id]
+            );
+
+            if (result.rows.length === 0) {
+                return;
+            }
+
+            return new GroupRoleModel(result.rows[0]);
+
+        } catch (error) {
+            throw error;
+        }
+
     }
 
     static async roleExist({ name }) {

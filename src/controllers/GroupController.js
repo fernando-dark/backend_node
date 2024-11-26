@@ -78,22 +78,18 @@ const deleteRoleGroup = async (req, res) => {
     try {
         const { id } = req.params;
 
-        console.log(id);
-
-
-        const deleteGroupApp = await GroupAppModel.delete({ id })
-        const deleteGroupRole = await GroupRoleModel.delete({ id });
         const deleteRole = await GroupModel.deleteGroup({ id });
-
+        const deleteGroupApp = await GroupAppModel.delete({ id });
+        const deleteGroupRole = await GroupRoleModel.delete({ id });
 
         res.status(201).json({
-            message: 'Grupo de rol eliminado correctamente'
-            // message: deleteRole
+            message: `Grupo de rol ${id} eliminado correctamente`
         });
+
     } catch (error) {
         console.log(`Error eliminar rol ${error}`);
         res.status(500).json({
-            error: `error al eliminar rol ${error}`
+            error: `Error al eliminar rol: ${error}`
         });
     }
 }
